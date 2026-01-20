@@ -207,7 +207,7 @@ function App() {
                     onClick={() => handleToggleTodo(todo.id, todo.completed)}
                     className="check-btn"
                   >
-                    {todo.completed && <Check size={14} />}
+                    {!!todo.completed && <Check size={14} />}
                   </button>
                   <span className="todo-text">
                     {todo.text}

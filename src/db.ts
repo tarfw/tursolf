@@ -43,7 +43,11 @@ export const getDb = async (): Promise<Database> => {
 };
 
 // Manual Sync Logic
+let syncLock = false;
+
 export const syncWithRemote = async (localDb: Database) => {
+  if (syncLock) return false;
+  syncLock = true;
   console.log("Syncing with Fly.io...");
 
   try {
@@ -114,6 +118,8 @@ export const syncWithRemote = async (localDb: Database) => {
   } catch (err) {
     console.error("Sync failed:", err);
     throw err;
+  } finally {
+    syncLock = false;
   }
 };
 
